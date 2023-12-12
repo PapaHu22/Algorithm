@@ -70,449 +70,13 @@ int shortest_path(GraphType* g, int start, int index)
 }
 
 
-
-void En5_Room1() {
-	GraphType g = { 6,
-		{{0, 2, INF, INF, INF, INF},
-		{2, 0, 2, 2, INF, INF},
-		{INF, 2, 0, INF, INF, INF, INF},
-		{INF, 2, INF, 0, 2, INF},
-		{INF, INF, INF, 2, 0, 2},
-		{INF, INF, INF, INF, 2, 0}}
-	};
-
-	int died[5];
-	int i;
-	for (i = 0; i < 5; i++) {
-		died[i] = FALSE;
-	}
-
-	int index = 0;
-	int enemy_range;
-
-	while (1) {
-		do {
-			printf("적이 5명 있습니다. 몇 번 적을 공격할까요? >> ");
-			scanf("%d", &index);
-
-			if (died[index - 1]) {
-				printf("해당 적은 이미 죽였습니다.");
-			}
-			else {
-				break;
-			}
-		} while (1);
-
-		enemy_range = shortest_path(&g, 0, index);
-
-		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
-
-
-		if (enemy[index].hp <= 0) {
-			printf("1번 적을 물리쳤다.\n");
-			died[0] = TRUE;
-			g.weight[0][1] = 1;
-			g.weight[1][0] = 1;
-			g.weight[1][2] = 1;
-			g.weight[1][3] = 1;
-			g.weight[2][1] = 1;
-			g.weight[3][1] = 1;
-		}
-
-		if (index == 2) {
-			printf("2번 적을 물리쳤다.\n");
-			died[1] = TRUE;
-			g.weight[2][1] = 1;
-			g.weight[1][2] = 1;
-		}
-
-		if (index == 3) {
-			printf("3번 적을 물리쳤다.\n");
-			died[2] = TRUE;
-			g.weight[3][1] = 1;
-			g.weight[3][4] = 1;
-			g.weight[1][3] = 1;
-			g.weight[4][3] = 1;
-		}
-
-		if (index == 4) {
-			printf("4번 적을 물리쳤다.\n");
-			died[3] = TRUE;
-			g.weight[4][3] = 1;
-			g.weight[4][5] = 1;
-			g.weight[3][4] = 1;
-			g.weight[5][4] = 1;
-		}
-
-		if (index == 5) {
-			printf("5번 적을 물리쳤다.\n");
-			died[4] = TRUE;
-			g.weight[5][4] = 1;
-			g.weight[4][5] = 1;
-		}
-
-		if (died[0]) {
-			if (died[1]) {
-				if (died[2]) {
-					if (died[3]) {
-						if (died[4]) {
-							printf("모든 적을 물리쳤다\n");
-							Sleep(5000);
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
-
-}
-
-void En5_Room2() {
-	GraphType g = { 6,
-		{{0, 2, INF, INF, INF, INF},
-		{2, 0, 2, 2, INF, INF},
-		{INF, 2, 0, INF, 2, INF},
-		{INF, 2, INF, 0, INF, INF},
-		{INF, INF, 2, INF, 0, 2},
-		{INF, INF, INF, INF, 2, 0}}
-	};
-
-	int died[5];
-	int i;
-	for (i = 0; i < 5; i++) {
-		died[i] = FALSE;
-	}
-
-	int index = 0;
-	int enemy_range;
-
-	while (1) {
-		do {
-			printf("적이 5명 있습니다. 몇 번 적을 공격할까요? >> ");
-			scanf("%d", &index);
-
-			if (died[index - 1]) {
-				printf("해당 적은 이미 죽였습니다.");
-			}
-			else {
-				break;
-			}
-		} while (1);
-
-		enemy_range = shortest_path(&g, 0, index);
-
-		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
-
-
-		if (index == 1) {
-			printf("1번 적을 물리쳤다.\n");
-			died[0] = TRUE;
-			g.weight[0][1] = 1;
-			g.weight[1][0] = 1;
-			g.weight[1][2] = 1;
-			g.weight[1][3] = 1;
-			g.weight[2][1] = 1;
-			g.weight[3][1] = 1;
-		}
-
-		if (index == 2) {
-			printf("2번 적을 물리쳤다.\n");
-			died[1] = TRUE;
-			g.weight[2][1] = 1;
-			g.weight[1][2] = 1;
-			g.weight[2][4] = 1;
-			g.weight[4][2] = 1;
-		}
-
-		if (index == 3) {
-			printf("3번 적을 물리쳤다.\n");
-			died[2] = TRUE;
-			g.weight[3][1] = 1;
-			g.weight[1][3] = 1;
-		}
-
-		if (index == 4) {
-			printf("4번 적을 물리쳤다.\n");
-			died[3] = TRUE;
-			g.weight[4][2] = 1;
-			g.weight[4][5] = 1;
-			g.weight[2][4] = 1;
-			g.weight[5][4] = 1;
-		}
-
-		if (index == 5) {
-			printf("5번 적을 물리쳤다.\n");
-			died[4] = TRUE;
-			g.weight[5][4] = 1;
-			g.weight[4][5] = 1;
-		}
-
-		if (died[0]) {
-			if (died[1]) {
-				if (died[2]) {
-					if (died[3]) {
-						if (died[4]) {
-							printf("모든 적을 물리쳤다\n");
-							Sleep(5000);
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-void En4_Room1() {
-	GraphType g = { 5,
-		{{0, 2, INF, INF, INF},
-		{2, 0, 2, 2, INF},
-		{INF, 2, 0, INF, 2},
-		{INF, 2, INF, 0, INF},
-		{INF, INF, 2, INF, 0}}
-	};
-
-	int died[4];
-	int i;
-	for (i = 0; i < 4; i++) {
-		died[i] = FALSE;
-	}
-
-	int index = 0;
-	int enemy_range;
-
-	while (1) {
-		do {
-			printf("적이 4명 있습니다. 몇 번 적을 공격할까요? >> ");
-			scanf("%d", &index);
-
-			if (died[index - 1]) {
-				printf("해당 적은 이미 죽였습니다.");
-			}
-			else {
-				break;
-			}
-		} while (1);
-
-		enemy_range = shortest_path(&g, 0, index);
-
-		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
-
-
-		if (index == 1) {
-			printf("1번 적을 물리쳤다.\n");
-			died[0] = TRUE;
-			g.weight[1][0] = 1;
-			g.weight[1][2] = 1;
-			g.weight[1][3] = 1;
-			g.weight[0][1] = 1;
-			g.weight[2][1] = 1;
-			g.weight[3][1] = 1;
-		}
-
-		if (index == 2) {
-			printf("2번 적을 물리쳤다.\n");
-			died[1] = TRUE;
-			g.weight[2][1] = 1;
-			g.weight[1][2] = 1;
-			g.weight[2][4] = 1;
-			g.weight[4][2] = 1;
-		}
-
-		if (index == 3) {
-			printf("3번 적을 물리쳤다.\n");
-			died[2] = TRUE;
-			g.weight[3][1] = 1;
-			g.weight[1][3] = 1;
-		}
-
-		if (index == 4) {
-			printf("4번 적을 물리쳤다.\n");
-			died[3] = TRUE;
-			g.weight[4][3] = 1;
-			g.weight[4][5] = 1;
-			g.weight[3][4] = 1;
-			g.weight[5][4] = 1;
-		}
-
-		if (died[0]) {
-			if (died[1]) {
-				if (died[2]) {
-					if (died[3]) {
-						printf("모든 적을 물리쳤다\n");
-						Sleep(5000);
-						break;
-					}
-				}
-			}
-		}
-	}
-
-}
-
-void En4_Room2() {
-	GraphType g = { 5,
-		{{0, 2, 2, INF, INF},
-		{2, 0, INF, 2, 2},
-		{2, INF, 0, INF, INF},
-		{INF, 2, INF, 0, INF},
-		{INF, 2, INF, INF, 0}}
-	};
-
-	int died[4];
-	int i;
-	for (i = 0; i < 4; i++) {
-		died[i] = FALSE;
-	}
-
-	int index = 0;
-	int enemy_range;
-
-	while (1) {
-		do {
-			printf("적이 4명 있습니다. 몇 번 적을 공격할까요? >> ");
-			scanf("%d", &index);
-
-			if (died[index - 1]) {
-				printf("해당 적은 이미 죽였습니다.");
-			}
-			else {
-				break;
-			}
-		} while (1);
-
-		enemy_range = shortest_path(&g, 0, index);
-
-		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
-
-
-		if (index == 1) {
-			printf("1번 적을 물리쳤다.\n");
-			died[0] = TRUE;
-			g.weight[1][0] = 1;
-			g.weight[1][3] = 1;
-			g.weight[1][4] = 1;
-			g.weight[0][1] = 1;
-			g.weight[3][1] = 1;
-			g.weight[4][1] = 1;
-		}
-
-		if (index == 2) {
-			printf("2번 적을 물리쳤다.\n");
-			died[1] = TRUE;
-			g.weight[2][0] = 1;
-			g.weight[0][2] = 1;
-		}
-
-		if (index == 3) {
-			printf("3번 적을 물리쳤다.\n");
-			died[2] = TRUE;
-			g.weight[3][1] = 1;
-			g.weight[1][3] = 1;
-		}
-
-		if (index == 4) {
-			printf("4번 적을 물리쳤다.\n");
-			died[3] = TRUE;
-			g.weight[4][1] = 1;
-			g.weight[1][4] = 1;
-		}
-
-		if (died[0]) {
-			if (died[1]) {
-				if (died[2]) {
-					if (died[3]) {
-						printf("모든 적을 물리쳤다\n");
-						Sleep(5000);
-						break;
-					}
-				}
-			}
-		}
-	}
-}
-
-void En3_Room1() {
-	GraphType g = { 4,
-   {{ 0, 2, 2, INF },
-   { 2, 0, INF, 2 },
-   { 2, INF, 0, 2 },
-   { INF, 2, 2, 0 }}
-	};
-
-	int died[3];
-	int i;
-	for (i = 0; i < 3; i++) {
-		died[i] = FALSE;
-	}
-
-	int index = 0;
-	int enemy_range;
-
-	while (1) {
-		do {
-			printf("적이 3명 있습니다. 몇 번 적을 공격할까요? >> ");
-			scanf("%d", &index);
-
-			if (died[index - 1]) {
-				printf("해당 적은 이미 죽였습니다.");
-			}
-			else {
-				break;
-			}
-		} while (1);
-
-		enemy_range = shortest_path(&g, 0, index);
-
-		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
-
-
-		if (index == 1) {
-			printf("1번 적을 물리쳤다.\n");
-			died[0] = TRUE;
-			g.weight[0][1] = 1;
-			g.weight[1][0] = 1;
-			g.weight[1][3] = 1;
-			g.weight[3][1] = 1;
-		}
-
-		if (index == 2) {
-			printf("2번 적을 물리쳤다.\n");
-			died[1] = TRUE;
-			g.weight[2][3] = 1;
-			g.weight[2][0] = 1;
-			g.weight[0][2] = 1;
-			g.weight[3][2] = 1;
-		}
-
-		if (index == 3) {
-			printf("3번 적을 물리쳤다.\n");
-			died[2] = TRUE;
-			g.weight[3][1] = 1;
-			g.weight[3][2] = 1;
-			g.weight[1][3] = 1;
-			g.weight[2][3] = 1;
-		}
-
-		if (died[0]) {
-			if (died[1]) {
-				if (died[2]) {
-					printf("모든적 물리침\n");
-					Sleep(5000);
-					break;
-				}
-			}
-		}
-	}
-}
-
-void En2_Room1() {
+void St1() {
+	//1STAGE
 	GraphType g = { 3,
-		{{0,2,INF},
-		{2,0,2},
-		{INF, 2, 0}}
-	};
+		{{ 0, 2, INF },//주인공부터 적1에게는 2의 거리, 적1부터 적2까지는 INF(4)
+		{ 2, 0, 2 },
+		{ INF, 2, 0 },
+		} };
 
 	int died[2];
 	int i;
@@ -544,25 +108,994 @@ void En2_Room1() {
 		if (index == 1) {
 			printf("1번 적을 물리쳤다.\n");
 			died[0] = TRUE;
+			g.weight[0][1] = 1;
 			g.weight[1][0] = 1;
 			g.weight[1][2] = 1;
-			g.weight[0][1] = 1;
 			g.weight[2][1] = 1;
 		}
 
 		if (index == 2) {
 			printf("2번 적을 물리쳤다.\n");
 			died[1] = TRUE;
-			g.weight[2][1] = 1;
 			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
 		}
+
+		
 
 		if (died[0]) {
 			if (died[1]) {
-				printf("모든적 물리침\n");
+				printf("모든 적을 물리쳤다\n");
 				Sleep(5000);
 				break;
 			}
 		}
 	}
 }
+
+
+void St2_1() {
+	//2STAGE FIRST
+	GraphType g = { 6,
+		{{ 0, 2, 2, INF, INF, INF },
+		{ 2, 0, INF, 2, INF, INF },
+		{ 2, INF, 0, INF, 2, INF },
+		{ INF, 2, INF, 0, INF, 2 },
+		{ INF, INF, 2, INF, 0, INF },
+		{ INF, INF, INF, INF, 2, 0 },
+		} };
+
+	int died[5];
+	int i;
+	for (i = 0; i < 5; i++) {
+		died[i] = FALSE;
+	}
+
+	int index = 0;
+	int enemy_range;
+
+	while (1) {
+		do {
+			printf("적이 5명 있습니다. 몇 번 적을 공격할까요? >> ");
+			scanf("%d", &index);
+
+			if (died[index - 1]) {
+				printf("해당 적은 이미 죽였습니다.");
+			}
+			else {
+				break;
+			}
+		} while (1);
+
+		enemy_range = shortest_path(&g, 0, index);
+
+		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
+
+
+		if (index == 1) {
+			printf("1번 적을 물리쳤다.\n");
+			died[0] = TRUE;
+			g.weight[0][1] = 1;
+			g.weight[1][0] = 1;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+			
+		}
+
+		if (index == 2) {
+			printf("2번 적을 물리쳤다.\n");
+			died[1] = TRUE;
+			g.weight[0][2] = 1;
+			g.weight[2][0] = 1;
+			g.weight[2][4] = 1;
+			g.weight[4][2] = 1;
+		}
+
+		if (index == 3) {
+			printf("3번 적을 물리쳤다.\n");
+			died[2] = TRUE;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+		}
+
+		if (index == 4) {
+			printf("4번 적을 물리쳤다.\n");
+			died[3] = TRUE;
+			g.weight[2][4] = 1;
+			g.weight[4][2] = 1;
+
+		}
+
+		if (index == 5) {
+			printf("5번 적을 물리쳤다.\n");
+			died[4] = TRUE;
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+			
+		}
+
+
+		if (died[0]) {
+			if (died[1]) {
+				if (died[2]) {
+					if (died[3]) {
+						if (died[4]) {							
+							printf("모든 적을 물리쳤다\n");
+							Sleep(5000);
+							break;					
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+
+void St2_2() {
+	//2STAGE SECOND
+	GraphType g = { 6,
+		{{ 0, 2, 2, INF, INF, INF },
+		{ 2, 0, INF, 2, 2, INF },
+		{ 2, INF, 0, INF, INF, INF },
+		{ INF, 2, INF, 0, INF, 2 },
+		{ INF, 2, INF, INF, 0, 2 },
+		{ INF, INF, INF, 2, 2, 0 },
+		} };
+
+	int died[5];
+	int i;
+	for (i = 0; i < 5; i++) {
+		died[i] = FALSE;
+	}
+
+	int index = 0;
+	int enemy_range;
+
+	while (1) {
+		do {
+			printf("적이 5명 있습니다. 몇 번 적을 공격할까요? >> ");
+			scanf("%d", &index);
+
+			if (died[index - 1]) {
+				printf("해당 적은 이미 죽였습니다.");
+			}
+			else {
+				break;
+			}
+		} while (1);
+
+		enemy_range = shortest_path(&g, 0, index);
+
+		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
+
+
+		if (index == 1) {
+			printf("1번 적을 물리쳤다.\n");
+			died[0] = TRUE;
+			g.weight[0][1] = 1;
+			g.weight[1][0] = 1;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+			g.weight[1][4] = 1;
+			g.weight[4][1] = 1;
+
+		}
+
+		if (index == 2) {
+			printf("2번 적을 물리쳤다.\n");
+			died[1] = TRUE;
+			g.weight[0][2] = 1;
+			g.weight[2][0] = 1;
+			
+		}
+
+		if (index == 3) {
+			printf("3번 적을 물리쳤다.\n");
+			died[2] = TRUE;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+		}
+
+		if (index == 4) {
+			printf("4번 적을 물리쳤다.\n");
+			died[3] = TRUE;
+			g.weight[1][4] = 1;
+			g.weight[4][1] = 1;
+			g.weight[4][5] = 1;
+			g.weight[5][4] = 1;
+
+		}
+
+		if (index == 5) {
+			printf("5번 적을 물리쳤다.\n");
+			died[4] = TRUE;
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+			g.weight[4][5] = 1;
+			g.weight[5][4] = 1;
+		}
+
+
+		if (died[0]) {
+			if (died[1]) {
+				if (died[2]) {
+					if (died[3]) {
+						if (died[4]) {
+							printf("모든 적을 물리쳤다\n");
+							Sleep(5000);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+
+
+
+
+
+void St3_1() {
+	//3STAGE FIRST
+	GraphType g = { 7,
+		{{ 0, 2, 2, INF, INF, INF, INF },
+		{ 2, 0, INF, 2, 2, INF, INF },
+		{ 2, INF, 0, INF, INF, INF, INF },
+		{ INF, 2, INF, 0, 2, 2, INF },
+		{ INF, 2, INF, INF, 0, INF, INF },
+		{ INF, INF, INF, 2, INF, 0, 2 },
+		{ INF, INF, INF, INF, INF, 2, 0 },
+		} };
+
+	int died[6];
+	int i;
+	for (i = 0; i < 6; i++) {
+		died[i] = FALSE;
+	}
+
+	int index = 0;
+	int enemy_range;
+
+	while (1) {
+		do {
+			printf("적이 6명 있습니다. 몇 번 적을 공격할까요? >> ");
+			scanf("%d", &index);
+
+			if (died[index - 1]) {
+				printf("해당 적은 이미 죽였습니다.");
+			}
+			else {
+				break;
+			}
+		} while (1);
+
+		enemy_range = shortest_path(&g, 0, index);
+
+		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
+
+
+		if (index == 1) {
+			printf("1번 적을 물리쳤다.\n");
+			died[0] = TRUE;
+			g.weight[0][1] = 1;
+			g.weight[1][0] = 1;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+			g.weight[1][4] = 1;
+			g.weight[4][1] = 1;	
+		}
+
+		if (index == 2) {
+			printf("2번 적을 물리쳤다.\n");
+			died[1] = TRUE;
+			g.weight[0][2] = 1;
+			g.weight[2][0] = 1;
+		}
+
+		if (index == 3) {
+			printf("3번 적을 물리쳤다.\n");
+			died[2] = TRUE;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+			
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+		}
+
+		if (index == 4) {
+			printf("4번 적을 물리쳤다.\n");
+			died[3] = TRUE;
+			g.weight[1][4] = 1;
+			g.weight[4][1] = 1;
+			
+		}
+
+		if (index == 5) {
+			printf("5번 적을 물리쳤다.\n");
+			died[4] = TRUE;
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+			g.weight[5][6] = 1;
+			g.weight[6][5] = 1;
+		}
+
+		if (index == 6){
+			printf("6번 적을 물리쳤다.\n");
+			died[5] = TRUE;
+			g.weight[6][5] = 1;
+			g.weight[5][6] = 1;
+		}
+
+		if (died[0]) {
+			if (died[1]) {
+				if (died[2]) {
+					if (died[3]) {
+						if (died[4]) {
+							if (died[5]) {
+								printf("모든 적을 물리쳤다\n");
+								Sleep(5000);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+void St3_2() {
+	//3STAGE SECOND
+	GraphType g = { 7,
+		{{ 0, 2, INF, INF, INF, INF, INF },
+		{ 2, 0, 2, INF, INF, INF, INF },
+		{ INF, 2, 0, 2, 2, INF, INF },
+		{ INF, INF, 2, 0, INF, 2, 2 },
+		{ INF, INF, 2, INF, 0, INF, INF },
+		{ INF, INF, INF, 2, INF, 0, INF },
+		{ INF, INF, INF, 2, INF, INF, 0 },
+		} };
+
+	int died[6];
+	int i;
+	for (i = 0; i < 6; i++) {
+		died[i] = FALSE;
+	}
+
+	int index = 0;
+	int enemy_range;
+
+	while (1) {
+		do {
+			printf("적이 6명 있습니다. 몇 번 적을 공격할까요? >> ");
+			scanf("%d", &index);
+
+			if (died[index - 1]) {
+				printf("해당 적은 이미 죽였습니다.");
+			}
+			else {
+				break;
+			}
+		} while (1);
+
+		enemy_range = shortest_path(&g, 0, index);
+
+		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
+
+
+		if (index == 1) {
+			printf("1번 적을 물리쳤다.\n");
+			died[0] = TRUE;
+			g.weight[0][1] = 1;
+			g.weight[1][0] = 1;
+			
+		}
+
+		if (index == 2) {
+			printf("2번 적을 물리쳤다.\n");
+			died[1] = TRUE;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
+			g.weight[2][3] = 1;
+			g.weight[3][2] = 1;
+			g.weight[2][4] = 1;
+			g.weight[4][2] = 1;
+		}
+
+		if (index == 3) {
+			printf("3번 적을 물리쳤다.\n");
+			died[2] = TRUE;
+			g.weight[2][3] = 1;
+			g.weight[3][2] = 1;
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+			g.weight[3][6] = 1;
+			g.weight[6][3] = 1;
+		}
+
+		if (index == 4) {
+			printf("4번 적을 물리쳤다.\n");
+			died[3] = TRUE;
+			g.weight[2][4] = 1;
+			g.weight[4][2] = 1;
+
+		}
+
+		if (index == 5) {
+			printf("5번 적을 물리쳤다.\n");
+			died[4] = TRUE;
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+			
+		}
+
+		if (index == 6) {
+			printf("6번 적을 물리쳤다.\n");
+			died[5] = TRUE;
+			g.weight[6][3] = 1;
+			g.weight[3][6] = 1;
+		}
+
+		if (died[0]) {
+			if (died[1]) {
+				if (died[2]) {
+					if (died[3]) {
+						if (died[4]) {
+							if (died[5]) {
+								printf("모든 적을 물리쳤다\n");
+								Sleep(5000);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+
+void St3_3() {
+	//3STAGE THIRD
+	GraphType g = { 7,
+		{{ 0, 2, INF, INF, INF, INF, INF },
+		{ 2, 0, 2, 2, INF, INF, INF },
+		{ INF, 2, 0, INF, 2, 2, INF },
+		{ INF, 2, INF, 0, INF, INF, INF },
+		{ INF, INF, 2, INF, 0, INF, 2 },
+		{ INF, INF, 2, INF, INF, 0, 2 },
+		{ INF, INF, INF, INF, 2, 2, 0 },
+		} };
+
+	int died[6];
+	int i;
+	for (i = 0; i < 6; i++) {
+		died[i] = FALSE;
+	}
+
+	int index = 0;
+	int enemy_range;
+
+	while (1) {
+		do {
+			printf("적이 6명 있습니다. 몇 번 적을 공격할까요? >> ");
+			scanf("%d", &index);
+
+			if (died[index - 1]) {
+				printf("해당 적은 이미 죽였습니다.");
+			}
+			else {
+				break;
+			}
+		} while (1);
+
+		enemy_range = shortest_path(&g, 0, index);
+
+		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
+
+
+		if (index == 1) {
+			printf("1번 적을 물리쳤다.\n");
+			died[0] = TRUE;
+			g.weight[0][1] = 1;
+			g.weight[1][0] = 1;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+
+		}
+
+		if (index == 2) {
+			printf("2번 적을 물리쳤다.\n");
+			died[1] = TRUE;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;			
+			g.weight[2][4] = 1;
+			g.weight[4][2] = 1;
+			g.weight[2][5] = 1;
+			g.weight[5][2] = 1;
+		}
+
+		if (index == 3) {
+			printf("3번 적을 물리쳤다.\n");
+			died[2] = TRUE;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+			
+		}
+
+		if (index == 4) {
+			printf("4번 적을 물리쳤다.\n");
+			died[3] = TRUE;
+			g.weight[2][4] = 1;
+			g.weight[4][2] = 1;
+			g.weight[4][6] = 1;
+			g.weight[6][4] = 1;
+
+		}
+
+		if (index == 5) {
+			printf("5번 적을 물리쳤다.\n");
+			died[4] = TRUE;
+			g.weight[2][5] = 1;
+			g.weight[5][2] = 1;
+			g.weight[5][6] = 1;
+			g.weight[6][5] = 1;
+
+		}
+
+		if (index == 6) {
+			printf("6번 적을 물리쳤다.\n");
+			died[5] = TRUE;
+			g.weight[6][4] = 1;
+			g.weight[4][6] = 1;
+			g.weight[6][5] = 1;
+			g.weight[5][6] = 1;
+		}
+
+		if (died[0]) {
+			if (died[1]) {
+				if (died[2]) {
+					if (died[3]) {
+						if (died[4]) {
+							if (died[5]) {
+								printf("모든 적을 물리쳤다\n");
+								Sleep(5000);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+void St4_1() {
+	//4STAGE FIRST
+	GraphType g = { 8,
+		{{ 0, 2, INF, INF, INF, INF, INF, INF },
+		{ 2, 0, 2, 2, 2, INF, INF, INF },
+		{ INF, 2, 0, INF, INF, 2, INF, INF },
+		{ INF, 2, INF, 0, INF, INF, INF, INF },
+		{ INF, 2, INF, INF, 0, 2, INF, INF },
+		{ INF, INF, 2, INF, 2, 0, 2, 2 },
+		{ INF, INF, INF, INF, INF, 2, 0, INF },
+		{ INF, INF, INF, INF, INF, 2, INF, 0 },
+		} };
+
+	int died[7];
+	int i;
+	for (i = 0; i < 7; i++) {
+		died[i] = FALSE;
+	}
+
+	int index = 0;
+	int enemy_range;
+
+	while (1) {
+		do {
+			printf("적이 7명 있습니다. 몇 번 적을 공격할까요? >> ");
+			scanf("%d", &index);
+
+			if (died[index - 1]) {
+				printf("해당 적은 이미 죽였습니다.");
+			}
+			else {
+				break;
+			}
+		} while (1);
+
+		enemy_range = shortest_path(&g, 0, index);
+
+		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
+
+
+		if (index == 1) {
+			printf("1번 적을 물리쳤다.\n");
+			died[0] = TRUE;
+			g.weight[0][1] = 1;
+			g.weight[1][0] = 1;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+			g.weight[1][4] = 1;
+			g.weight[4][1] = 1;
+
+		}
+
+		if (index == 2) {
+			printf("2번 적을 물리쳤다.\n");
+			died[1] = TRUE;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
+			g.weight[2][5] = 1;
+			g.weight[5][2] = 1;
+			
+		}
+
+		if (index == 3) {
+			printf("3번 적을 물리쳤다.\n");
+			died[2] = TRUE;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+
+		}
+
+		if (index == 4) {
+			printf("4번 적을 물리쳤다.\n");
+			died[3] = TRUE;
+			g.weight[1][4] = 1;
+			g.weight[4][1] = 1;
+			g.weight[4][5] = 1;
+			g.weight[5][4] = 1;
+
+		}
+
+		if (index == 5) {
+			printf("5번 적을 물리쳤다.\n");
+			died[4] = TRUE;
+			g.weight[2][5] = 1;
+			g.weight[5][2] = 1;
+			g.weight[5][6] = 1;
+			g.weight[6][5] = 1;
+			g.weight[5][4] = 1;
+			g.weight[4][5] = 1;
+			g.weight[5][7] = 1;
+			g.weight[7][5] = 1;
+
+		}
+
+		if (index == 6) {
+			printf("6번 적을 물리쳤다.\n");
+			died[5] = TRUE;
+			
+			g.weight[6][5] = 1;
+			g.weight[5][6] = 1;
+		}
+
+		if (index == 7) {
+			printf("7번 적을 물리쳤다.\n");
+			died[6] = TRUE;
+			g.weight[7][5] = 1;
+			g.weight[5][7] = 1;
+		}
+
+		if (died[0]) {
+			if (died[1]) {
+				if (died[2]) {
+					if (died[3]) {
+						if (died[4]) {
+							if (died[5]) {
+								if (died[6]) {
+									printf("모든 적을 물리쳤다\n");
+									Sleep(5000);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void St4_3() {
+	//4STAGE THIRD
+	GraphType g = { 8,
+		{{ 0, 2, INF, INF, INF, INF, INF, INF },
+		{ 2, 0, 2, 2, 2, 2, INF, INF },
+		{ INF, 2, 0, INF, INF, INF, 2, INF },
+		{ INF, 2, INF, 0, INF, INF, INF, INF },
+		{ INF, 2, INF, INF, 0, INF, INF, INF },
+		{ INF, 2, INF, INF, INF, 0, 2, INF },
+		{ INF, INF, 2, INF, INF, 2, 0, 2 },
+		{ INF, INF, INF, INF, INF, INF, 2, 0 },
+		} };
+
+	int died[7];
+	int i;
+	for (i = 0; i < 7; i++) {
+		died[i] = FALSE;
+	}
+
+	int index = 0;
+	int enemy_range;
+
+	while (1) {
+		do {
+			printf("적이 7명 있습니다. 몇 번 적을 공격할까요? >> ");
+			scanf("%d", &index);
+
+			if (died[index - 1]) {
+				printf("해당 적은 이미 죽였습니다.");
+			}
+			else {
+				break;
+			}
+		} while (1);
+
+		enemy_range = shortest_path(&g, 0, index);
+
+		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
+
+
+		if (index == 1) {
+			printf("1번 적을 물리쳤다.\n");
+			died[0] = TRUE;
+			g.weight[0][1] = 1;
+			g.weight[1][0] = 1;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+			g.weight[1][4] = 1;
+			g.weight[4][1] = 1;
+			g.weight[1][5] = 1;
+			g.weight[5][1] = 1;
+
+		}
+
+		if (index == 2) {
+			printf("2번 적을 물리쳤다.\n");
+			died[1] = TRUE;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
+			g.weight[2][6] = 1;
+			g.weight[6][2] = 1;
+
+		}
+
+		if (index == 3) {
+			printf("3번 적을 물리쳤다.\n");
+			died[2] = TRUE;
+			g.weight[1][3] = 1;
+			g.weight[3][1] = 1;
+
+		}
+
+		if (index == 4) {
+			printf("4번 적을 물리쳤다.\n");
+			died[3] = TRUE;
+			g.weight[1][4] = 1;
+			g.weight[4][1] = 1;
+			
+
+		}
+
+		if (index == 5) {
+			printf("5번 적을 물리쳤다.\n");
+			died[4] = TRUE;
+			g.weight[1][5] = 1;
+			g.weight[5][1] = 1;
+			g.weight[5][6] = 1;
+			g.weight[6][5] = 1;
+			
+
+		}
+
+		if (index == 6) {
+			printf("6번 적을 물리쳤다.\n");
+			died[5] = TRUE;
+			g.weight[2][6] = 1;
+			g.weight[6][2] = 1;
+			g.weight[6][5] = 1;
+			g.weight[5][6] = 1;
+			g.weight[6][7] = 1;
+			g.weight[7][6] = 1;
+		}
+
+		if (index == 7) {
+			printf("7번 적을 물리쳤다.\n");
+			died[6] = TRUE;
+			g.weight[7][6] = 1;
+			g.weight[6][7] = 1;
+		}
+
+		if (died[0]) {
+			if (died[1]) {
+				if (died[2]) {
+					if (died[3]) {
+						if (died[4]) {
+							if (died[5]) {
+								if (died[6]) {
+									printf("모든 적을 물리쳤다\n");
+									Sleep(5000);
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+void Boss() {
+	//Boss_STAGE
+	GraphType g = { 7,
+		{{ 0, 2, INF, INF, INF, INF, INF },
+		{ 2, 0, 2, INF, INF, INF, INF },
+		{ INF, 2, 0, 2, INF, INF, INF },
+		{ INF, INF, 2, 0, 2, 2, INF },
+		{ INF, INF, INF, 2, 0, INF, 2 },
+		{ INF, INF, INF, 2, INF, 0, 2 },
+		{ INF, INF, INF, INF, 2, 2, 0 },
+		} };
+
+	int died[6];
+	int i;
+	for (i = 0; i < 6; i++) {
+		died[i] = FALSE;
+	}
+
+	int index = 0;
+	int enemy_range;
+
+	while (1) {
+		do {
+			printf("적이 6명 있습니다. 몇 번 적을 공격할까요? >> ");
+			scanf("%d", &index);
+
+			if (died[index - 1]) {
+				printf("해당 적은 이미 죽였습니다.");
+			}
+			else {
+				break;
+			}
+		} while (1);
+
+		enemy_range = shortest_path(&g, 0, index);
+
+		printf("선택한 적은 %d만큼 떨어져 있습니다.", enemy_range);
+
+
+		if (index == 1) {
+			printf("1번 적을 물리쳤다.\n");
+			died[0] = TRUE;
+			g.weight[0][1] = 1;
+			g.weight[1][0] = 1;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
+			
+
+		}
+
+		if (index == 2) {
+			printf("2번 적을 물리쳤다.\n");
+			died[1] = TRUE;
+			g.weight[1][2] = 1;
+			g.weight[2][1] = 1;
+			g.weight[2][3] = 1;
+			g.weight[3][2] = 1;
+			
+		}
+
+		if (index == 3) {
+			printf("3번 적을 물리쳤다.\n");
+			died[2] = TRUE;
+			g.weight[2][3] = 1;
+			g.weight[3][2] = 1;
+			g.weight[3][4] = 1;
+			g.weight[4][3] = 1;
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+		}
+
+		if (index == 4) {
+			printf("4번 적을 물리쳤다.\n");
+			died[3] = TRUE;
+			g.weight[3][4] = 1;
+			g.weight[4][3] = 1;
+			g.weight[4][6] = 1;
+			g.weight[6][4] = 1;
+
+		}
+
+		if (index == 5) {
+			printf("5번 적을 물리쳤다.\n");
+			died[4] = TRUE;
+			g.weight[3][5] = 1;
+			g.weight[5][3] = 1;
+			g.weight[5][6] = 1;
+			g.weight[6][5] = 1;
+
+		}
+
+		if (index == 6) {
+			printf("6번 적을 물리쳤다.\n");
+			died[5] = TRUE;
+			g.weight[6][4] = 1;
+			g.weight[4][6] = 1;
+			g.weight[6][5] = 1;
+			g.weight[5][6] = 1;
+		}
+
+		if (died[0]) {
+			if (died[1]) {
+				if (died[2]) {
+					if (died[3]) {
+						if (died[4]) {
+							if (died[5]) {
+								printf("모든 적을 물리쳤다\n");
+								Sleep(5000);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
