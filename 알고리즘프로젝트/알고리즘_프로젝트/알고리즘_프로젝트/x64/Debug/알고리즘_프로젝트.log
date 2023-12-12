@@ -1,5 +1,5 @@
-﻿  main.c
+﻿  algo_weapon.c
+C:\Users\USER\OneDrive\문서\GitHub\Algorithm\알고리즘프로젝트\알고리즘_프로젝트\알고리즘_프로젝트\algo_weapon.c(81,13): warning C4013: 'Sleep'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
   range.c
-C:\Users\USER\OneDrive\바탕 화면\대학생활\2학년 2학기\알고리즘\알고리즘프로젝트\알고리즘_프로젝트\알고리즘_프로젝트\range.c(28,1): warning C4029: 선언된 정식 매개 변수 목록이 정의와 다릅니다.
   코드를 생성하고 있습니다...
-  알고리즘_프로젝트.vcxproj -> C:\Users\USER\OneDrive\바탕 화면\대학생활\2학년 2학기\알고리즘\알고리즘프로젝트\알고리즘_프로젝트\x64\Debug\알고리즘_프로젝트.exe
+  알고리즘_프로젝트.vcxproj -> C:\Users\USER\OneDrive\문서\GitHub\Algorithm\알고리즘프로젝트\알고리즘_프로젝트\x64\Debug\알고리즘_프로젝트.exe

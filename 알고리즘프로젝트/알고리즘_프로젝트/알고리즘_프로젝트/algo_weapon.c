@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -56,11 +57,50 @@ void reload_deck(int index) {
     }
 }
 
+void building_turn() {
+    int reload_count = 3;
+    int input;
+    int index;
+    numSelectedWeapons = 0;
+    add_random_deck_weapons();
+
+    while (1) {
+        system("cls");
+
+        print_deck();
+        printf("덱에서 무기를 바꾸시겠습니까?(남은 리롤 횟수:%d)[yes(1)/no(2)]", reload_count);
+        scanf("%d", &input);
+        if (input == 1) {
+            printf("몇 번 무기를 바꾸시겠습니까?");
+            scanf("%d", &index);
+            reload_deck(index - 1);
+            reload_count--;
+        }
+        else if (input == 2) {
+            printf("해당 무기 덱을 들고갑니다.\n");
+            Sleep(1000);
+            break;
+        }
+        else {
+            printf("잘못된 입력입니다");
+            Sleep(1000);
+        }
+
+        if (reload_count == 0) {
+            printf("리롤 횟수를 전부 소진했습니다.\n");
+            Sleep(1000);
+            break;
+        }
+    }
+
+
+}
+
 void select_weapon_in_deck(int index) {
     if (index >= 0 && index < numdeckWeapons) {
         if (numSelectedWeapons < MAX_WEAPONS) {
-            weapon_add(deckWeapons[index]);
-            dack_weapon_delete(index);
+            weapon_add(deckWeapons[index-1]);
+            deck_weapon_delete(index-1);
         }
         else {
             printf("더 이상 무기를 챙길수 없습니다.\n");
@@ -71,11 +111,21 @@ void select_weapon_in_deck(int index) {
     }
 }
 
+void print_deck() {
+    for (int i = 0; i < numdeckWeapons; i++) {
+        printf("|[%d]%s 사거리: %d|", i + 1, deckWeapons[i].name, deckWeapons[i].range);
+        if (i == 5) {
+            printf("\n");
+        }
+    }
+    printf("\n");
+}
+
 
 //----------------------------------------초기 세팅 함수 라인
 // 무기 이름 설정
 char* get_weapon_name(int index) {
-    char* names[TOTAL_WEAPONS] = { "연필", "비상도끼", "부서진나무걸레", "권총", "유리조각", "쇠지렛대", "채찍", "밥솥폭탄" };
+    char* names[TOTAL_WEAPONS] = { "연필", "비상도끼", "나무걸레", "권총", "유리조각", "쇠지렛대", "채찍", "밥솥폭탄" };
     return names[index];
 }
 
@@ -167,28 +217,28 @@ void print_weapons() {
     for (int i = 0; i < numSelectedWeapons; i += 5) {
         printf("##################################################\n");
 
-        printf("#무기  : %-9s  # #무기  : %-9s  # #무기  : %-9s  # #무기  : %-9s  # #무기  : %-9s  #\n",
+        printf("#[1]무기: %-9s  # #[2]무기: %-9s  # #[3]무기: %-9s  # #[4]무기: %-9s  # #[5]무기: %-9s  #\n",
             selectedWeapons[i].name,
             (i + 1 < numSelectedWeapons) ? selectedWeapons[i + 1].name : "",
             (i + 2 < numSelectedWeapons) ? selectedWeapons[i + 2].name : "",
             (i + 3 < numSelectedWeapons) ? selectedWeapons[i + 3].name : "",
             (i + 4 < numSelectedWeapons) ? selectedWeapons[i + 4].name : "");
 
-        printf("#사거리:   %-9d# #사거리:   %-9d# #사거리:   %-9d# #사거리:   %-9d# #사거리:   %-9d#\n",
+        printf("#사거리 :   %-9d# #사거리 :   %-9d# #사거리 :   %-9d# #사거리 :   %-9d# #사거리 :   %-9d#\n",
             selectedWeapons[i].range,
             (i + 1 < numSelectedWeapons) ? selectedWeapons[i + 1].range : 0,
             (i + 2 < numSelectedWeapons) ? selectedWeapons[i + 2].range : 0,
             (i + 3 < numSelectedWeapons) ? selectedWeapons[i + 3].range : 0,
             (i + 4 < numSelectedWeapons) ? selectedWeapons[i + 4].range : 0);
 
-        printf("#데미지:   %-9d# #데미지:   %-9d# #데미지:   %-9d# #데미지:   %-9d# #데미지:   %-9d#\n",
+        printf("#데미지 :   %-9d# #데미지 :   %-9d# #데미지 :   %-9d# #데미지 :   %-9d# #데미지 :   %-9d#\n",
             selectedWeapons[i].damage,
             (i + 1 < numSelectedWeapons) ? selectedWeapons[i + 1].damage : 0,
             (i + 2 < numSelectedWeapons) ? selectedWeapons[i + 2].damage : 0,
             (i + 3 < numSelectedWeapons) ? selectedWeapons[i + 3].damage : 0,
             (i + 4 < numSelectedWeapons) ? selectedWeapons[i + 4].damage : 0);
 
-        printf("#내구도:   %-9d# #내구도:   %-9d# #내구도:   %-9d# #내구도:   %-9d# #내구도:   %-9d#\n",
+        printf("#내구도 :   %-9d# #내구도 :   %-9d# #내구도 :   %-9d# #내구도 :   %-9d# #내구도 :   %-9d#\n",
             selectedWeapons[i].durability,
             (i + 1 < numSelectedWeapons) ? selectedWeapons[i + 1].durability : 0,
             (i + 2 < numSelectedWeapons) ? selectedWeapons[i + 2].durability : 0,
