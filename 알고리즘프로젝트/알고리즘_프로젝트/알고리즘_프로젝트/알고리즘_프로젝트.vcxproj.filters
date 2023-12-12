@@ -21,9 +21,15 @@
     <ClCompile Include="range.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="algo_weapon.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="range.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="weapon.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

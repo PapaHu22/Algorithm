@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="algo_weapon.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="range.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="range.h" />
+    <ClInclude Include="weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
