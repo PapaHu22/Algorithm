@@ -11,15 +11,18 @@
 int main()
 {
 	srand(time(NULL));
+	initialize_weapons();
 
 	int player_HP = 100;
 	int randomindex;
 	int turn = 0;
 
-	printf("이곳에 납치된 여동생이 있다. 들어간다.");
+	printf("창을 풀스크린으로 하고 플레이하시길 바랍니다.아무키나 눌러 시작하십시오\n");
 	char keyPressed = _getch();
+	system("cls");
+	printf("이곳에 납치된 여동생이 있다. 들어간다.\n");
+	keyPressed = _getch();
 
-	initialize_weapons();
 
 	turn += St1(&player_HP);
 
@@ -47,7 +50,8 @@ int main()
 	else {
 		turn += St3_3(&player_HP);
 	}
-
+	
+	
 	building_turn();
 
 	randomindex = rand() % 2;
@@ -65,6 +69,8 @@ int main()
 	building_turn();
 
     turn += Boss(&player_HP);
+	
+	system("cls");
 
 	if (turn >= 100) {
 		printf("적을 모두 처단했지만 여동생은 이미 사라지고 없었다.\n");

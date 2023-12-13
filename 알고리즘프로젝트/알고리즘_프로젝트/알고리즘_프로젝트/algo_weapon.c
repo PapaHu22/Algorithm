@@ -48,7 +48,7 @@ void deck_weapon_delete(int index) {
 }
 
 void reload_deck(int index) {
-    if (index >= 0 && index < numdeckWeapons) {
+    if (index >= 0 && index <= numdeckWeapons) {
         deck_weapon_delete(index);
         int randomIndex = rand() % TOTAL_WEAPONS;;
         deck_weapon_add(allWeapons[randomIndex]);
@@ -106,7 +106,7 @@ void building_turn() {
 }
 
 void select_weapon_in_deck(int index) {
-    if (index >= 0 && index < numdeckWeapons) {
+    if (index >= 0 && index <= numdeckWeapons) {
         if (numSelectedWeapons < MAX_WEAPONS) {
             weapon_add(deckWeapons[index-1]);
             deck_weapon_delete(index-1);

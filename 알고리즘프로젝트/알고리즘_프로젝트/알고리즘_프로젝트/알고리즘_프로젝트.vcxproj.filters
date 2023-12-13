@@ -24,12 +24,30 @@
     <ClCompile Include="algo_weapon.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="print_boss.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="print_st1.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="enmo.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="range.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="weapon.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="print_boss.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="print_st1.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="emno.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

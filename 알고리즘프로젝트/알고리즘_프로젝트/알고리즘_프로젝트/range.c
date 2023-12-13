@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include "range.h"
 #include "weapon.h"
+#include "emno.h"
 
 
 int distance[MAX_VERTICES];/* 시작정점으로부터의 최단경로 거리 */
@@ -109,6 +110,8 @@ int St1(int* p_hp) {
 			printf("플레이어 체력 : %d\n\n", *p_hp);
 
 			//적표시
+			pst1(em, g);
+
 			for (int i = 0; i < 2; i++) {
 				if (!died[i]) {
 					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -249,6 +252,8 @@ int St2_1(int* p_hp) {
 			printf("플레이어 체력 : %d\n\n", *p_hp);
 
 			//적표시
+			pst2_1(em, g);
+
 			for (int i = 0; i < 5; i++) {
 				if (!died[i]) {
 					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -418,6 +423,8 @@ int St2_2(int* p_hp) {
 			printf("플레이어 체력 : %d\n\n", *p_hp);
 
 			//적표시
+			pst2_2(em, g);
+
 			for (int i = 0; i < 5; i++) {
 				if (!died[i]) {
 					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -591,6 +598,8 @@ int St3_1(int* p_hp) {
 			printf("플레이어 체력 : %d\n\n", *p_hp);
 
 			//적표시
+			pst3_1(em, g);
+
 			for (int i = 0; i < 6; i++) {
 				if (!died[i]) {
 					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -768,6 +777,8 @@ int St3_2(int* p_hp) {
 			printf("플레이어 체력 : %d\n\n", *p_hp);
 
 			//적표시
+			pst3_2(em, g);
+
 			for (int i = 0; i < 6; i++) {
 				if (!died[i]) {
 					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -946,6 +957,8 @@ int St3_3(int* p_hp) {
 			printf("플레이어 체력 : %d\n\n", *p_hp);
 
 			//적표시
+			pst3_3(em, g);
+
 			for (int i = 0; i < 6; i++) {
 				if (!died[i]) {
 					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -1133,6 +1146,8 @@ int St4_1(int* p_hp) {
 			printf("플레이어 체력 : %d\n\n", *p_hp);
 
 			//적표시
+			pst4_1(em, g);
+
 			for (int i = 0; i < 7; i++) {
 				if (!died[i]) {
 					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -1333,6 +1348,8 @@ int St4_2(int* p_hp) {
 				printf("플레이어 체력 : %d\n\n", *p_hp);
 
 				//적표시
+				pst4_2(em, g);
+
 				for (int i = 0; i < 7; i++) {
 					if (!died[i]) {
 						printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -1534,6 +1551,7 @@ int St4_3(int* p_hp) {
 			printf("플레이어 체력 : %d\n\n", *p_hp);
 
 			//적표시
+			pst4_3(em, g);
 			for (int i = 0; i < 7; i++) {
 				if (!died[i]) {
 					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
@@ -1743,6 +1761,8 @@ int Boss(int* p_hp) {
 			printf("%d\n", turn);
 
 			//적표시
+			pboss(em, g);
+
 			for (int i = 0; i < 6; i++) {
 				if (!died[i]) {
 					if (i == 5) {

@@ -19,7 +19,7 @@ typedef struct GraphType {
 int choose(int distance[], int n, int found[]);
 void print_status(GraphType* g, int* distance, int* found);
 int shortest_path(GraphType* g, int start, int index);
-
+void print_user_enemy(int st, int* died, Em* em);
 
 int St1(int* p_hp);
 int St2_1(int* p_hp);

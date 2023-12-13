@@ -1,4 +1,7 @@
-﻿  algo_weapon.c
-C:\Users\USER\OneDrive\문서\GitHub\Algorithm\알고리즘프로젝트\알고리즘_프로젝트\알고리즘_프로젝트\algo_weapon.c(90,13): warning C4013: 'Sleep'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-C:\Users\USER\OneDrive\문서\GitHub\Algorithm\알고리즘프로젝트\알고리즘_프로젝트\알고리즘_프로젝트\algo_weapon.c(222,11): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  enmo.c
+C:\Users\USER\OneDrive\문서\GitHub\Algorithm\알고리즘프로젝트\알고리즘_프로젝트\알고리즘_프로젝트\emno.h(1,9): warning C4068: 알 수 없는 pragma 'onces'
+C:\Users\USER\OneDrive\문서\GitHub\Algorithm\알고리즘프로젝트\알고리즘_프로젝트\알고리즘_프로젝트\enmo.c(5,32): warning C4029: 선언된 정식 매개 변수 목록이 정의와 다릅니다.
+  main.c
+C:\Users\USER\OneDrive\문서\GitHub\Algorithm\알고리즘프로젝트\알고리즘_프로젝트\알고리즘_프로젝트\main.c(13,8): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
   알고리즘_프로젝트.vcxproj -> C:\Users\USER\OneDrive\문서\GitHub\Algorithm\알고리즘프로젝트\알고리즘_프로젝트\x64\Debug\알고리즘_프로젝트.exe

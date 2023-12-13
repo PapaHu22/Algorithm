@@ -128,10 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="algo_weapon.c" />
+    <ClCompile Include="enmo.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="print_boss.c" />
+    <ClCompile Include="print_st1.c" />
     <ClCompile Include="range.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="emno.h" />
+    <ClInclude Include="print_boss.h" />
+    <ClInclude Include="print_st1.h" />
     <ClInclude Include="range.h" />
     <ClInclude Include="weapon.h" />
   </ItemGroup>
