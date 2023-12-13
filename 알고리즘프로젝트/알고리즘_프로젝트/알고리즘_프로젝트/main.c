@@ -26,6 +26,9 @@ int main()
 
 	turn += St1(&player_HP);
 
+	if (player_HP <= 0) {
+		return 1;
+	}
 	building_turn();
 
 	randomindex = rand() % 2;
@@ -35,6 +38,10 @@ int main()
 	}
 	else {
 		turn += St2_2(&player_HP);
+	}
+
+	if (player_HP <= 0) {
+		return 2;
 	}
 
 	building_turn();
@@ -49,6 +56,10 @@ int main()
 	}
 	else {
 		turn += St3_3(&player_HP);
+	}
+
+	if (player_HP <= 0) {
+		return 3;
 	}
 	
 	
@@ -66,9 +77,17 @@ int main()
 		turn += St4_3(&player_HP);
 	}
 
+	if (player_HP <= 0) {
+		return 4;
+	}
+
 	building_turn();
 
     turn += Boss(&player_HP);
+
+	if (player_HP <= 0) {
+		return 5;
+	}
 	
 	system("cls");
 

@@ -189,7 +189,7 @@ void plus_w_i_d() {
             Sleep(1000);
         }
     }
-
+    sort_by_range(selectedWeapons, numSelectedWeapons);
     system("cls");
 }
 
@@ -225,6 +225,7 @@ void add_random_weapons() {
         int randomIndex = rand() % TOTAL_WEAPONS;
         weapon_add(allWeapons[randomIndex]);
     }
+    sort_by_range(selectedWeapons, numSelectedWeapons);
 }
 //----------------------------------------중요 기능 함수 라인
 //무기 추가

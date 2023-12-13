@@ -200,6 +200,12 @@ int St1(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		Sleep(1000);
 		turn++;
 	}
@@ -373,9 +379,17 @@ int St2_1(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		Sleep(1000);
+		turn++;
 	}
-	turn++;
+
+	return turn;
 }
 
 int St2_2(int* p_hp) {
@@ -547,6 +561,12 @@ int St2_2(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		turn++;
 		Sleep(1000);
 	}
@@ -727,6 +747,12 @@ int St3_1(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		turn++;
 		Sleep(1000);
 	}
@@ -907,6 +933,12 @@ int St3_2(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		turn++;
 		Sleep(1000);
 	}
@@ -1095,6 +1127,12 @@ int St3_3(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		turn++;
 		Sleep(1000);
 	}
@@ -1296,6 +1334,12 @@ int St4_1(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		turn++;
 		Sleep(1000);
 	}
@@ -1499,6 +1543,12 @@ int St4_2(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		turn++;
 		Sleep(1000);
 	}
@@ -1701,6 +1751,12 @@ int St4_3(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		turn++;
 		Sleep(1000);
 	}
@@ -1909,6 +1965,12 @@ int Boss(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
+
+		if (*p_hp <= 0) {
+			printf("게임 오버\n");
+			break;
+		}
+
 		turn++;
 		Sleep(1000);
 	}
