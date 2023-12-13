@@ -70,12 +70,12 @@ int shortest_path(GraphType* g, int start, int index)
 	return distance[index] / 2;
 }
 
-
-void St1(int* p_hp) {
+int St1(int* p_hp) {
 	//1STAGE
 	int w_range;
 	int w_damage;
 	int w_index;
+	int turn = 1;
 	GraphType g = { 3,
 		{{ 0, 2, INF },//주인공부터 적1에게는 2의 거리, 적1부터 적2까지는 INF(4)
 		{ 2, 0, 2 },
@@ -116,25 +116,43 @@ void St1(int* p_hp) {
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
+
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 2) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
+
 
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index-1);
@@ -167,7 +185,7 @@ void St1(int* p_hp) {
 		if (died[0]) {
 			if (died[1]) {
 				printf("모든 적을 물리쳤다\n");
-				Sleep(5000);
+				Sleep(1000);
 				break;
 			}
 		}
@@ -179,15 +197,20 @@ void St1(int* p_hp) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		Sleep(1000);
+		turn++;
 	}
+
+	return turn;
 }
 
-void St2_1(int* p_hp) {
+int St2_1(int* p_hp) {
 	//2STAGE FIRST
 	int w_range;
 	int w_damage;
 	int w_index;
+	int input;
+	int turn = 1;
 	GraphType g = { 6,
 		{{ 0, 2, 2, INF, INF, INF },
 		{ 2, 0, INF, 2, INF, INF },
@@ -213,24 +236,14 @@ void St2_1(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
+	swid(died, em, g);
 
 
 	while (1) {
 		do {
 			system("cls");
+
+			plus_w_i_d();
 
 			printf("2번째 방\n");
 			printf("플레이어 체력 : %d\n\n", *p_hp);
@@ -243,25 +256,41 @@ void St2_1(int* p_hp) {
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index-1);
@@ -324,7 +353,7 @@ void St2_1(int* p_hp) {
 					if (died[3]) {
 						if (died[4]) {							
 							printf("모든 적을 물리쳤다\n");
-							Sleep(5000);
+							Sleep(1000);
 							break;					
 						}
 					}
@@ -334,22 +363,23 @@ void St2_1(int* p_hp) {
 
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		Sleep(1000);
 	}
-
+	turn++;
 }
 
-void St2_2(int* p_hp) {
+int St2_2(int* p_hp) {
 	//2STAGE SECOND
 	int w_range;
 	int w_damage;
 	int w_index;
-
+	int input;
+	int turn = 1;
 	GraphType g = { 6,
 		{{ 0, 2, 2, INF, INF, INF },
 		{ 2, 0, INF, 2, 2, INF },
@@ -375,24 +405,14 @@ void St2_2(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
+	swid(died, em, g);
 
 
 	while (1) {
 		do {
 			system("cls");
+
+			plus_w_i_d();
 
 			printf("2번째 방\n");
 			printf("플레이어 체력 : %d\n\n", *p_hp);
@@ -405,25 +425,40 @@ void St2_2(int* p_hp) {
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
-
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index-1);
@@ -490,7 +525,7 @@ void St2_2(int* p_hp) {
 					if (died[3]) {
 						if (died[4]) {
 							printf("모든 적을 물리쳤다\n");
-							Sleep(5000);
+							Sleep(2000);
 							break;
 						}
 					}
@@ -500,22 +535,24 @@ void St2_2(int* p_hp) {
 
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 5; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		turn++;
+		Sleep(1000);
 	}
-
+	return turn;
 }
 
-void St3_1(int* p_hp) {
+int St3_1(int* p_hp) {
 	//3STAGE FIRST
 	int w_range;
 	int w_damage;
 	int w_index;
-
+	int input;
+	int turn = 1;
 	GraphType g = { 7,
 		{{ 0, 2, 2, INF, INF, INF, INF },
 		{ 2, 0, INF, 2, 2, INF, INF },
@@ -542,24 +579,13 @@ void St3_1(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
-
+	swid(died, em, g);
 
 	while (1) {
 		do {
 			system("cls");
+
+			plus_w_i_d();
 
 			printf("3번째 방\n");
 			printf("플레이어 체력 : %d\n\n", *p_hp);
@@ -572,25 +598,41 @@ void St3_1(int* p_hp) {
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 6) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index - 1);
@@ -661,7 +703,7 @@ void St3_1(int* p_hp) {
 						if (died[4]) {
 							if (died[5]) {
 								printf("모든 적을 물리쳤다\n");
-								Sleep(5000);
+								Sleep(2000);
 								break;
 							}
 						}
@@ -671,21 +713,24 @@ void St3_1(int* p_hp) {
 		}
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 6; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		turn++;
+		Sleep(1000);
 	}
-
+	return turn;
 }
 
-void St3_2(int* p_hp) {
+int St3_2(int* p_hp) {
 	//3STAGE SECOND
 	int w_range;
 	int w_damage;
 	int w_index;
+	int input;
+	int turn = 1;
 	GraphType g = { 7,
 		{{ 0, 2, INF, INF, INF, INF, INF },
 		{ 2, 0, 2, INF, INF, INF, INF },
@@ -711,23 +756,13 @@ void St3_2(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
+	swid(died, em, g);
 
 	while (1) {
 		do {
 			system("cls");
+
+			plus_w_i_d();
 
 			printf("3번째 방\n");
 			printf("플레이어 체력 : %d\n\n", *p_hp);
@@ -740,25 +775,41 @@ void St3_2(int* p_hp) {
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 6) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index - 1);
@@ -830,7 +881,7 @@ void St3_2(int* p_hp) {
 						if (died[4]) {
 							if (died[5]) {
 								printf("모든 적을 물리쳤다\n");
-								Sleep(5000);
+								Sleep(2000);
 								break;
 							}
 						}
@@ -840,21 +891,24 @@ void St3_2(int* p_hp) {
 		}
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 6; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		turn++;
+		Sleep(1000);
 	}
-
+	return turn;
 }
 
-void St3_3(int* p_hp) {
+int St3_3(int* p_hp) {
 	//3STAGE THIRD
 	int w_range;
 	int w_damage;
 	int w_index;
+	int input;
+	int turn = 1;
 	GraphType g = { 7,
 		{{ 0, 2, INF, INF, INF, INF, INF },
 		{ 2, 0, 2, 2, INF, INF, INF },
@@ -880,23 +934,13 @@ void St3_3(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
+	swid(died, em, g);
 
 	while (1) {
 		do {
 			system("cls");
+
+			plus_w_i_d();
 
 			printf("3번째 방\n");
 			printf("플레이어 체력 : %d\n\n", *p_hp);
@@ -909,25 +953,41 @@ void St3_3(int* p_hp) {
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 6) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index - 1);
@@ -1007,7 +1067,7 @@ void St3_3(int* p_hp) {
 						if (died[4]) {
 							if (died[5]) {
 								printf("모든 적을 물리쳤다\n");
-								Sleep(5000);
+								Sleep(2000);
 								break;
 							}
 						}
@@ -1017,21 +1077,24 @@ void St3_3(int* p_hp) {
 		}
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 6; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		turn++;
+		Sleep(1000);
 	}
-
+	return turn;
 }
 
-void St4_1(int* p_hp) {
+int St4_1(int* p_hp) {
 	//4STAGE FIRST
 	int w_range;
 	int w_damage;
 	int w_index;
+	int input;
+	int turn = 1;
 	GraphType g = { 8,
 		{{ 0, 2, INF, INF, INF, INF, INF, INF },
 		{ 2, 0, 2, 2, 2, INF, INF, INF },
@@ -1058,23 +1121,13 @@ void St4_1(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
+	swid(died, em, g);
 
 	while (1) {
 		do {
 			system("cls");
+
+			plus_w_i_d();
 
 			printf("4번째 방\n");
 			printf("플레이어 체력 : %d\n\n", *p_hp);
@@ -1087,25 +1140,41 @@ void St4_1(int* p_hp) {
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 7) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index - 1);
@@ -1196,7 +1265,7 @@ void St4_1(int* p_hp) {
 							if (died[5]) {
 								if (died[6]) {
 									printf("모든 적을 물리쳤다\n");
-									Sleep(5000);
+									Sleep(2000);
 									break;
 								}
 							}
@@ -1207,20 +1276,24 @@ void St4_1(int* p_hp) {
 		}
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 7; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		turn++;
+		Sleep(1000);
 	}
+	return turn;
 }
 
-void St4_2(int* p_hp) {
+int St4_2(int* p_hp) {
 	//4STAGE THIRD
 	int w_range;
 	int w_damage;
 	int w_index;
+	int input;
+	int turn = 1;
 	GraphType g = { 8,
 		{{ 0, 2, 2, INF, INF, INF, INF, INF },
 		{ 2, 0, INF, 2, INF, INF, INF, INF },
@@ -1248,24 +1321,13 @@ void St4_2(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
-
+	swid(died, em, g);
 
 	while (1) {
 			do {
 				system("cls");
+
+				plus_w_i_d();
 
 				printf("4번째 방\n");
 				printf("플레이어 체력 : %d\n\n", *p_hp);
@@ -1278,25 +1340,41 @@ void St4_2(int* p_hp) {
 				}
 
 				print_weapons();
-				printf("무기 선택(1 ~ 5) >> ");
-				scanf("%d", &w_index);
+				while (1) {
+					printf("무기 선택(1 ~ 5) >> ");
+					scanf("%d", &w_index);
+					if (index < 1 && index > 5) {
+						printf("잘못된 입력\n");
+					}
+					else {
+						break;
+					}
+				}
 
 				w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 				w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-				printf("공격할 적 선택 >> ");
-				scanf("%d", &index);
+				while (1) {
+					printf("공격할 적 선택 >> ");
+					scanf("%d", &index);
+					if (index < 0 && index > 7) {
+						printf("잘못된 입력\n");
+					}
+					else {
+						break;
+					}
+				}
 
 				enemy_range = shortest_path(&g, 0, index);
 
 				if (died[index - 1]) {
 					printf("해당 적은 이미 죽였습니다.\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					if (enemy_range > w_range) {
 						printf("적이 사정거리 밖에 있다\n");
-						Sleep(2000);
+						Sleep(1000);
 					}
 					else {
 						use_weapon(w_index - 1);
@@ -1388,7 +1466,7 @@ void St4_2(int* p_hp) {
 							if (died[5]) {
 								if (died[6]) {
 									printf("모든 적을 물리쳤다\n");
-									Sleep(5000);
+									Sleep(2000);
 									break;
 								}
 							}
@@ -1399,21 +1477,25 @@ void St4_2(int* p_hp) {
 		}
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 7; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		turn++;
+		Sleep(1000);
 	}
-
+	return turn;
 }
 
-void St4_3(int* p_hp) {
+int St4_3(int* p_hp) {
 	//4STAGE THIRD
 	int w_range;
 	int w_damage;
 	int w_index;
+	int input;
+	int turn = 1;
+
 	GraphType g = { 8,
 		{{ 0, 2, INF, INF, INF, INF, INF, INF },
 		{ 2, 0, 2, 2, 2, 2, INF, INF },
@@ -1440,23 +1522,13 @@ void St4_3(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
+	swid(died, em, g);
 
 	while (1) {
 		do {
 			system("cls");
+
+			plus_w_i_d();
 
 			printf("4번째 방\n");
 			printf("플레이어 체력 : %d\n\n", *p_hp);
@@ -1469,25 +1541,41 @@ void St4_3(int* p_hp) {
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 7) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index - 1);
@@ -1579,7 +1667,7 @@ void St4_3(int* p_hp) {
 							if (died[5]) {
 								if (died[6]) {
 									printf("모든 적을 물리쳤다\n");
-									Sleep(5000);
+									Sleep(2000);
 									break;
 								}
 							}
@@ -1590,22 +1678,24 @@ void St4_3(int* p_hp) {
 		}
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 7; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
-
+		turn++;
+		Sleep(1000);
 	}
-
+	return turn;
 }
 
-void Boss(int* p_hp) {
+int Boss(int* p_hp) {
 	//Boss_STAGE
 	int w_range;
 	int w_damage;
 	int w_index;
+	int input;
+	int turn = 1;
 	GraphType g = { 7,
 		{{ 0, 2, INF, INF, INF, INF, INF },
 		{ 2, 0, 2, INF, INF, INF, INF },
@@ -1640,54 +1730,65 @@ void Boss(int* p_hp) {
 	int index = 0;
 	int enemy_range;
 
-	for (int i = 0; i < 5; i++) {
-		system("cls");
-		printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
-		for (int i = 0; i < 5; i++) {
-			if (!died[i]) {
-				printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
-			}
-		}
-		print_deck();
-		printf("사용할 무기 번호 >> ");
-		scanf("%d", &w_index);
-		select_weapon_in_deck(w_index);
-	}
+	swid(died, em, g);
 
 	while (1) {
 		do {
 			system("cls");
 
+			plus_w_i_d();
+
 			printf("보스 방\n");
 			printf("플레이어 체력 : %d\n\n", *p_hp);
+			printf("%d\n", turn);
 
 			//적표시
 			for (int i = 0; i < 6; i++) {
 				if (!died[i]) {
-					printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
+					if (i == 5) {
+						printf("[%d보스] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
+					}
+					else {
+						printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
+					}
 				}
 			}
 
 			print_weapons();
-			printf("무기 선택(1 ~ 5) >> ");
-			scanf("%d", &w_index);
+			while (1) {
+				printf("무기 선택(1 ~ 5) >> ");
+				scanf("%d", &w_index);
+				if (index < 1 && index > 5) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 
 			w_range = get_weapon_range(selectedWeapons[w_index - 1]);
 			w_damage = get_weapon_damage(selectedWeapons[w_index - 1]);
 
-			printf("공격할 적 선택 >> ");
-			scanf("%d", &index);
-
+			while (1) {
+				printf("공격할 적 선택 >> ");
+				scanf("%d", &index);
+				if (index < 0 && index > 6) {
+					printf("잘못된 입력\n");
+				}
+				else {
+					break;
+				}
+			}
 			enemy_range = shortest_path(&g, 0, index);
 
 			if (died[index - 1]) {
 				printf("해당 적은 이미 죽였습니다.\n");
-				Sleep(2000);
+				Sleep(1000);
 			}
 			else {
 				if (enemy_range > w_range) {
 					printf("적이 사정거리 밖에 있다\n");
-					Sleep(2000);
+					Sleep(1000);
 				}
 				else {
 					use_weapon(w_index - 1);
@@ -1773,7 +1874,7 @@ void Boss(int* p_hp) {
 						if (died[4]) {
 							if (died[5]) {
 								printf("보스와 모든 적을 물리쳤다\n");
-								Sleep(5000);
+								Sleep(2000);
 								break;
 							}
 						}
@@ -1783,13 +1884,14 @@ void Boss(int* p_hp) {
 		}
 		printf("적이 공격한다!\n");
 		//적의 턴 데미지 주기
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 6; i++) {
 			if (!died[i]) {
 				*p_hp -= em[i].damage;
 			}
 		}
-		Sleep(2000);
+		turn++;
+		Sleep(1000);
 	}
-
+	return turn;
 }
 

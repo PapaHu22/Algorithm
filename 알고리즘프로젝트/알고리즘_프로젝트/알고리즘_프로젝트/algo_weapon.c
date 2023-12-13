@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include "weapon.h"
+#include "range.h"
 
 #define TOTAL_WEAPONS 8
 #define MAX_RANGE 4
@@ -71,8 +72,16 @@ void building_turn() {
         printf("덱에서 무기를 바꾸시겠습니까?(남은 리롤 횟수:%d)[yes(1)/no(2)]", reload_count);
         scanf("%d", &input);
         if (input == 1) {
-            printf("몇 번 무기를 바꾸시겠습니까?");
-            scanf("%d", &index);
+            while (1) {
+                printf("몇 번 무기를 바꾸시겠습니까?");
+                scanf("%d", &index);
+                if (index < 1 && index > 10) {
+                    printf("잘못된 입력입니다.\n");
+                }
+                else {
+                    break;
+                }
+            }
             reload_deck(index - 1);
             reload_count--;
         }
@@ -113,12 +122,75 @@ void select_weapon_in_deck(int index) {
 
 void print_deck() {
     for (int i = 0; i < numdeckWeapons; i++) {
-        printf("|[%d]%s 사거리: %d|", i + 1, deckWeapons[i].name, deckWeapons[i].range);
-        if (i == 5) {
-            printf("\n");
-        }
+        printf("|[%d]%s 사거리: %d|\n", i + 1, deckWeapons[i].name, deckWeapons[i].range);
     }
     printf("\n");
+}
+
+void swid(int* died, Em* em, GraphType g) {
+    int w_index;
+
+    for (int i = 0; i < 5; i++) {
+        system("cls");
+        printf("덱에서 사용할 먼저 사용할 무기 5개를 선택\n");
+        for (int i = 0; i < 5; i++) {
+            if (!died[i]) {
+                printf("[%d] 체력: %d,거리: %d\n", em[i].index, em[i].HP, shortest_path(&g, 0, em[i].index));
+            }
+        }
+        print_deck();
+        while (1) {
+            printf("사용할 무기 번호 >> ");
+            scanf("%d", &w_index);
+            if (w_index < 1 && w_index > 10) {
+                printf("잘못된 입력입니다\n");
+            }
+            else {
+                break;
+            }
+        }
+        select_weapon_in_deck(w_index);
+    }
+}
+void plus_w_i_d() {
+    int w_index;
+    int input;
+
+    while (numSelectedWeapons <= 4) {
+        system("cls");
+        printf("사용 무기 : %d개 | 덱에서 무기를 꺼내겠습니까?(yes[1]/no[2]] >>", numSelectedWeapons);
+        scanf("%d", &input);
+
+        if (input == 1) {
+            if (numdeckWeapons <= 0) {
+                printf("덱에 남은 무기가 없습니다.\n");
+                break;
+            }
+            print_deck();
+            while (1) {
+                printf("사용할 무기 번호 >> ");
+                scanf("%d", &w_index);
+                if (w_index < 1 && w_index > 10) {
+                    printf("잘못된 입력입니다\n");
+                }
+                else {
+                    break;
+                }
+            }
+            select_weapon_in_deck(w_index);
+        }
+        else if (input == 2) {
+            printf("그대로 진행합니다.\n");
+            Sleep(1000);
+            break;
+        }
+        else {
+            printf("잘못된 입력입니다.\n");
+            Sleep(1000);
+        }
+    }
+
+    system("cls");
 }
 
 
@@ -147,6 +219,8 @@ void initialize_weapons() {
 
 // 무작위로 5개 무기 추가하는 함수
 void add_random_weapons() {
+    srand(time(NULL));
+
     while (numSelectedWeapons < MAX_WEAPONS) {
         int randomIndex = rand() % TOTAL_WEAPONS;
         weapon_add(allWeapons[randomIndex]);
@@ -215,37 +289,37 @@ void print_weapons() {
     printf("무기 목록:\n");
 
     for (int i = 0; i < numSelectedWeapons; i += 5) {
-        printf("##################################################\n");
-
-        printf("#[1]무기: %-9s  # #[2]무기: %-9s  # #[3]무기: %-9s  # #[4]무기: %-9s  # #[5]무기: %-9s  #\n",
+        printf("################  ################  ################  ################  ################\n");
+        printf("#      [1]     #  #      [2]     #  #      [3]     #  #      [4]     #  #      [5]     #\n");
+        printf("#   %-9s  #  #   %-9s  #  #   %-9s  #  #   %-9s  #  #   %-9s  #\n",
             selectedWeapons[i].name,
             (i + 1 < numSelectedWeapons) ? selectedWeapons[i + 1].name : "",
             (i + 2 < numSelectedWeapons) ? selectedWeapons[i + 2].name : "",
             (i + 3 < numSelectedWeapons) ? selectedWeapons[i + 3].name : "",
             (i + 4 < numSelectedWeapons) ? selectedWeapons[i + 4].name : "");
 
-        printf("#사거리 :   %-9d# #사거리 :   %-9d# #사거리 :   %-9d# #사거리 :   %-9d# #사거리 :   %-9d#\n",
+        printf("#사거리 :  %-4d#  #사거리 :  %-4d#  #사거리 :  %-4d#  #사거리 :  %-4d#  #사거리 :  %-4d#\n",
             selectedWeapons[i].range,
             (i + 1 < numSelectedWeapons) ? selectedWeapons[i + 1].range : 0,
             (i + 2 < numSelectedWeapons) ? selectedWeapons[i + 2].range : 0,
             (i + 3 < numSelectedWeapons) ? selectedWeapons[i + 3].range : 0,
             (i + 4 < numSelectedWeapons) ? selectedWeapons[i + 4].range : 0);
 
-        printf("#데미지 :   %-9d# #데미지 :   %-9d# #데미지 :   %-9d# #데미지 :   %-9d# #데미지 :   %-9d#\n",
+        printf("#데미지 :  %-4d#  #데미지 :  %-4d#  #데미지 :  %-4d#  #데미지 :  %-4d#  #데미지 :  %-4d#\n",
             selectedWeapons[i].damage,
             (i + 1 < numSelectedWeapons) ? selectedWeapons[i + 1].damage : 0,
             (i + 2 < numSelectedWeapons) ? selectedWeapons[i + 2].damage : 0,
             (i + 3 < numSelectedWeapons) ? selectedWeapons[i + 3].damage : 0,
             (i + 4 < numSelectedWeapons) ? selectedWeapons[i + 4].damage : 0);
 
-        printf("#내구도 :   %-9d# #내구도 :   %-9d# #내구도 :   %-9d# #내구도 :   %-9d# #내구도 :   %-9d#\n",
+        printf("#내구도 :  %-4d#  #내구도 :  %-4d#  #내구도 :  %-4d#  #내구도 :  %-4d#  #내구도 :  %-4d#\n",
             selectedWeapons[i].durability,
             (i + 1 < numSelectedWeapons) ? selectedWeapons[i + 1].durability : 0,
             (i + 2 < numSelectedWeapons) ? selectedWeapons[i + 2].durability : 0,
             (i + 3 < numSelectedWeapons) ? selectedWeapons[i + 3].durability : 0,
             (i + 4 < numSelectedWeapons) ? selectedWeapons[i + 4].durability : 0);
 
-        printf("##################################################\n\n");
+        printf("################  ################  ################  ################  ################\n\n");
     }
 }
 //----------------------------------------무기 정렬 알고리즘 함수 라인

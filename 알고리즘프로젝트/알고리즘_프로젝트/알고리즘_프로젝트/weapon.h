@@ -10,6 +10,8 @@ typedef struct {
 extern Weapon selectedWeapons[];
 extern int numSelectedWeapons;
 extern Weapon allWeapons[];
+extern Weapon deckWeapons[];
+extern int numdeckWeapons;
 
 void add_random_deck_weapons();
 void deck_weapon_add(Weapon weapon);
@@ -17,6 +19,8 @@ void deck_weapon_delete(int index);
 void reload_deck(int index);
 void select_weapon_in_deck(int index);
 void print_deck();
+void swid();
+void plus_w_i_d();
 void weapon_add(Weapon weapon);
 void weapon_delete(int index);
 int get_weapon_range(Weapon weapon);

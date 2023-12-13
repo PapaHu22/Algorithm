@@ -21,13 +21,13 @@ void print_status(GraphType* g, int* distance, int* found);
 int shortest_path(GraphType* g, int start, int index);
 
 
-void St1(int* p_hp);
-void St2_1(int* p_hp);
-void St2_2(int* p_hp);
-void St3_1(int* p_hp);
-void St3_2(int* p_hp);
-void St3_3(int* p_hp);
-void St4_1(int* p_hp);
-void St4_2(int* p_hp);
-void St4_3(int* p_hp);
-void Boss(int* p_hp);
+int St1(int* p_hp);
+int St2_1(int* p_hp);
+int St2_2(int* p_hp);
+int St3_1(int* p_hp);
+int St3_2(int* p_hp);
+int St3_3(int* p_hp);
+int St4_1(int* p_hp);
+int St4_2(int* p_hp);
+int St4_3(int* p_hp);
+int Boss(int* p_hp);
